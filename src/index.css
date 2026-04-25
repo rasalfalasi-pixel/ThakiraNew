@@ -1,96 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* THAKIRA — Heritage Preserved
+   Design tokens (HSL). Dark-first archival aesthetic. */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Heritage dark archive */
+    --background: 0 0% 7.5%;            /* surface-dim #131313 */
+    --foreground: 30 10% 89%;           /* on-surface */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --surface: 0 0% 7.5%;
+    --surface-dim: 0 0% 5.5%;
+    --surface-bright: 0 0% 22%;
+    --surface-container-lowest: 0 0% 5.5%;
+    --surface-container-low: 0 0% 10.6%;
+    --surface-container: 0 0% 12.4%;
+    --surface-container-high: 0 0% 16.5%;
+    --surface-container-highest: 0 0% 20.8%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 12.4%;
+    --card-foreground: 30 10% 89%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --popover: 0 0% 10.6%;
+    --popover-foreground: 30 10% 89%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Heritage gold — primary signature */
+    --primary: 44 100% 65%;             /* #FFCC4D primary-container */
+    --primary-foreground: 39 100% 12%;  /* deep amber */
+    --primary-glow: 44 100% 75%;
+    --primary-fixed: 44 100% 80%;       /* primary #FFEDCD */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --secondary: 80 47% 67%;            /* olive #b6d088 */
+    --secondary-foreground: 75 100% 7%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 0 0% 16.5%;
+    --muted-foreground: 40 18% 76%;     /* on-surface-variant #d2c5af */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 44 100% 65%;
+    --accent-foreground: 39 100% 12%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 4 100% 70%;          /* crimson */
+    --destructive-foreground: 0 100% 95%;
 
-    --radius: 0.5rem;
+    --border: 39 19% 25%;               /* outline-variant warm */
+    --input: 39 19% 25%;
+    --ring: 44 100% 65%;
 
-    --sidebar-background: 0 0% 98%;
+    --radius: 1.5rem;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --gold: 44 100% 65%;
+    --gold-soft: 44 100% 80%;
+    --crimson: 4 100% 65%;
+    --olive: 80 47% 67%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    --gradient-gold: linear-gradient(135deg, hsl(44 100% 70%), hsl(38 100% 55%));
+    --gradient-fade-bottom: linear-gradient(to bottom, transparent 0%, hsl(var(--background) / 0.6) 70%, hsl(var(--background)) 100%);
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    --shadow-glow: 0 0 24px hsl(44 100% 65% / 0.35);
+    --shadow-glow-soft: 0 0 18px hsl(44 100% 65% / 0.22);
+    --shadow-elevated: 0 20px 40px -10px hsl(0 0% 0% / 0.6);
+    --shadow-crimson: 0 0 24px hsl(4 100% 60% / 0.35);
 
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --transition-base: cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
@@ -98,8 +74,131 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
-
-  body {
-    @apply bg-background text-foreground;
+  html, body, #root {
+    height: 100%;
   }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Noto Serif', serif;
+  }
+
+  /* Material Symbols */
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .ms-fill {
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+}
+
+@layer utilities {
+  .dot-grid {
+    background-image: radial-gradient(circle, hsl(39 19% 35% / 0.25) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .glass {
+    background: hsl(var(--surface-container-high) / 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .glass-strong {
+    background: hsl(var(--surface-container) / 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .ghost-border {
+    box-shadow: inset 0 0 0 1px hsl(var(--border) / 0.3);
+  }
+  .glow-gold {
+    box-shadow: var(--shadow-glow);
+  }
+  .glow-soft {
+    box-shadow: var(--shadow-glow-soft);
+  }
+  .glow-crimson {
+    box-shadow: var(--shadow-crimson);
+  }
+  .text-shadow-gold {
+    text-shadow: 0 0 18px hsl(var(--primary) / 0.45);
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .gold-divider {
+    background: linear-gradient(to right, transparent, hsl(var(--primary) / 0.5), transparent);
+    height: 1px;
+  }
+
+  .ledger-row + .ledger-row {
+    border-top: 1px solid hsl(var(--primary) / 0.18);
+  }
+}
+
+/* Page transition */
+.page-enter {
+  animation: pageIn 360ms var(--transition-base) both;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Drawer slide */
+.drawer-enter { animation: drawerIn 320ms var(--transition-base) both; }
+.drawer-exit { animation: drawerOut 220ms var(--transition-base) both; }
+@keyframes drawerIn {
+  from { transform: translateX(-100%); opacity: 0.4; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes drawerOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+
+/* Sheet rise */
+.sheet-rise { animation: sheetRise 380ms var(--transition-base) both; }
+@keyframes sheetRise {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Subtle pulsing aura */
+@keyframes aura {
+  0%, 100% { box-shadow: 0 0 24px hsl(var(--primary) / 0.35); }
+  50% { box-shadow: 0 0 38px hsl(var(--primary) / 0.55); }
+}
+.aura { animation: aura 3.2s ease-in-out infinite; }
+
+/* Striped progress */
+.stripe-progress {
+  background-image: repeating-linear-gradient(
+    45deg,
+    hsl(var(--primary)) 0,
+    hsl(var(--primary)) 10px,
+    hsl(var(--primary-glow)) 10px,
+    hsl(var(--primary-glow)) 20px
+  );
+  animation: stripeMove 1.4s linear infinite;
+}
+@keyframes stripeMove {
+  from { background-position: 0 0; }
+  to { background-position: 40px 0; }
 }

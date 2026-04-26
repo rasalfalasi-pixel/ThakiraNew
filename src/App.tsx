@@ -21,6 +21,8 @@ import SubmissionStatus from "./pages/SubmissionStatus";
 import SubmissionRejected from "./pages/SubmissionRejected";
 import VrLoading from "./pages/VrLoading";
 import StorytellerProfile from "./pages/StorytellerProfile";
+import ChapterDetail from "./pages/ChapterDetail";
+import ArchiveDetail from "./pages/ArchiveDetail";
 
 import Quiz from "./pages/Quiz";
 import Daleel from "./pages/Daleel";
@@ -56,6 +58,8 @@ const App = () => (
             <Route path="/archive" element={<ProtectedRoute allow={[...memberOnly]}><Archive /></ProtectedRoute>} />
             <Route path="/saved" element={<ProtectedRoute allow={[...memberOnly]}><HeritageCollection /></ProtectedRoute>} />
             <Route path="/journey" element={<ProtectedRoute allow={[...memberOnly]}><Journey /></ProtectedRoute>} />
+            <Route path="/journey/:chapterId" element={<ProtectedRoute allow={[...memberOnly]}><ChapterDetail /></ProtectedRoute>} />
+            <Route path="/archive/:archiveId" element={<ProtectedRoute allow={[...memberOnly]}><ArchiveDetail /></ProtectedRoute>} />
             <Route path="/contribute" element={<ProtectedRoute allow={[...memberOnly]}><Contribute /></ProtectedRoute>} />
             <Route path="/submissions" element={<ProtectedRoute allow={[...memberOnly]}><SubmissionStatus /></ProtectedRoute>} />
             <Route path="/submissions/rejected" element={<ProtectedRoute allow={[...memberOnly]}><SubmissionRejected /></ProtectedRoute>} />

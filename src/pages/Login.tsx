@@ -49,7 +49,7 @@ const Login = () => {
                 e.preventDefault();
                 setError(null);
                 const result = login(email, password);
-                if (!result.ok) {
+                if (result.ok === false) {
                   setError(result.error);
                   toast({ title: "Access Denied", description: result.error, variant: "destructive" });
                   return;

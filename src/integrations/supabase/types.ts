@@ -14,16 +14,313 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      achievements: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          points: number
+          title: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          points?: number
+          title: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          points?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      chapters: {
+        Row: {
+          created_at: string
+          daleel_insight: string | null
+          era: string | null
+          era_dates: string | null
+          gallery: Json | null
+          hero: Json | null
+          id: string
+          intro: Json | null
+          key_points: Json | null
+          layout: string | null
+          pull_quote: string | null
+          sort_order: number
+          subtitle: string | null
+          timeline: Json | null
+          title: string
+          updated_at: string
+          visibility: Database["public"]["Enums"]["visibility"]
+          widgets: Json | null
+        }
+        Insert: {
+          created_at?: string
+          daleel_insight?: string | null
+          era?: string | null
+          era_dates?: string | null
+          gallery?: Json | null
+          hero?: Json | null
+          id: string
+          intro?: Json | null
+          key_points?: Json | null
+          layout?: string | null
+          pull_quote?: string | null
+          sort_order?: number
+          subtitle?: string | null
+          timeline?: Json | null
+          title: string
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["visibility"]
+          widgets?: Json | null
+        }
+        Update: {
+          created_at?: string
+          daleel_insight?: string | null
+          era?: string | null
+          era_dates?: string | null
+          gallery?: Json | null
+          hero?: Json | null
+          id?: string
+          intro?: Json | null
+          key_points?: Json | null
+          layout?: string | null
+          pull_quote?: string | null
+          sort_order?: number
+          subtitle?: string | null
+          timeline?: Json | null
+          title?: string
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["visibility"]
+          widgets?: Json | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string
+          email: string
+          id: string
+          is_admin: boolean
+          status: Database["public"]["Enums"]["account_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string
+          email: string
+          id: string
+          is_admin?: boolean
+          status?: Database["public"]["Enums"]["account_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          email?: string
+          id?: string
+          is_admin?: boolean
+          status?: Database["public"]["Enums"]["account_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      questions: {
+        Row: {
+          choices: Json
+          correct_answer: number
+          created_at: string
+          hint: string | null
+          id: string
+          question_text: string
+          quiz_id: string
+          rationale: string | null
+          sort_order: number
+        }
+        Insert: {
+          choices: Json
+          correct_answer: number
+          created_at?: string
+          hint?: string | null
+          id?: string
+          question_text: string
+          quiz_id: string
+          rationale?: string | null
+          sort_order?: number
+        }
+        Update: {
+          choices?: Json
+          correct_answer?: number
+          created_at?: string
+          hint?: string | null
+          id?: string
+          question_text?: string
+          quiz_id?: string
+          rationale?: string | null
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quizzes: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_published: boolean
+          reward_points: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          reward_points?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          reward_points?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      submissions: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          media_url: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          reviewer_notes: string | null
+          status: Database["public"]["Enums"]["submission_status"]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          media_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          media_url?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          reviewer_notes?: string | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievement_id: string
+          id: string
+          unlocked_at: string
+          user_id: string
+        }
+        Insert: {
+          achievement_id: string
+          id?: string
+          unlocked_at?: string
+          user_id: string
+        }
+        Update: {
+          achievement_id?: string
+          id?: string
+          unlocked_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_achievements_achievement_id_fkey"
+            columns: ["achievement_id"]
+            isOneToOne: false
+            referencedRelation: "achievements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      account_status: "Active" | "Suspended"
+      app_role: "admin" | "member"
+      submission_status: "pending" | "approved" | "rejected"
+      visibility: "public" | "archived"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +447,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      account_status: ["Active", "Suspended"],
+      app_role: ["admin", "member"],
+      submission_status: ["pending", "approved", "rejected"],
+      visibility: ["public", "archived"],
+    },
   },
 } as const

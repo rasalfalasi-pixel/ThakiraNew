@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AppShell } from "@/components/AppShell";
 import { Icon } from "@/components/Icon";
+import { useAuth } from "@/auth/AuthContext";
+import { useHeritageProgress } from "@/hooks/useHeritageProgress";
 import olive from "@/assets/olive-grove.jpg";
 import artisan from "@/assets/artisan-linework.jpg";
 import family from "@/assets/family-archive.jpg";

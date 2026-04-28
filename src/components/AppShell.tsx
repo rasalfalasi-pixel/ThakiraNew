@@ -34,7 +34,7 @@ const userNav = [
 const adminNav = [
   { to: "/admin", label: "Overview", icon: "dashboard" },
   { to: "/admin/users", label: "Users", icon: "group" },
-  { to: "/admin/maintenance", label: "Systems", icon: "dns" },
+  { to: "/admin/moderation", label: "Review", icon: "rate_review" },
   { to: "/admin/logs", label: "Logs", icon: "terminal" },
 ];
 
@@ -45,8 +45,9 @@ const baseDrawerLinks = [
   { to: "/quiz", label: "Heritage Quiz", icon: "quiz", roles: ["member"] as const },
   { to: "/daleel", label: "Daleel Assistant", icon: "auto_awesome", roles: ["member"] as const },
   { to: "/vr", label: "VR Immersion", icon: "view_in_ar", roles: ["member"] as const },
-  { to: "/profile", label: "Master Storyteller", icon: "workspace_premium", roles: ["admin"] as const },
   { to: "/admin", label: "Admin Console", icon: "shield_person", roles: ["admin"] as const },
+  { to: "/admin/users", label: "User Directory", icon: "group", roles: ["admin"] as const },
+  { to: "/admin/moderation", label: "Moderation Queue", icon: "rate_review", roles: ["admin"] as const },
 ];
 
 export const AppShell = ({

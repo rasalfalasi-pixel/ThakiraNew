@@ -37,26 +37,30 @@ const StorytellerProfile = () => {
           </div>
         </div>
         <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-primary font-bold">
-          Master Storyteller
+          {tier.label}
         </p>
-        <h1 className="font-serif font-bold text-foreground text-3xl mt-1">Abdullah Ishtiaq Khan</h1>
+        <h1 className="font-serif font-bold text-foreground text-3xl mt-1">{displayName}</h1>
       </section>
 
       {/* Progress */}
       <section className="px-6 mt-6">
-        <div className="bg-surface-container ghost-border rounded-[1.5rem] p-5">
+        <div className="bg-surface-container ghost-container ghost-border rounded-[1.5rem] p-5">
           <div className="flex items-end justify-between">
             <p className="text-foreground font-medium">
-              70% Heritage Completion — <span className="text-primary">Master Status Active</span>
+              {percent}% Heritage Completion — <span className="text-primary">{tier.status}</span>
             </p>
-            <span className="font-serif text-3xl text-primary">70%</span>
+            <span className="font-serif text-3xl text-primary">{percent}%</span>
           </div>
           <div className="mt-3 h-2 rounded-full bg-surface-high overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-primary-glow to-primary glow-soft" style={{ width: "70%" }} />
+            <div
+              className="h-full bg-gradient-to-r from-primary-glow to-primary glow-soft transition-all"
+              style={{ width: `${percent}%` }}
+            />
           </div>
           <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-            You are 3 milestones away from reaching the Grand Archivist tier. Your contributions have
-            preserved 42 generational narratives.
+            {percent === 0
+              ? "Begin your heritage journey by completing a quiz or contributing a memory."
+              : `You've completed ${quizzesCompleted} ${quizzesCompleted === 1 ? "quiz" : "quizzes"} and contributed ${approvedSubmissions} approved ${approvedSubmissions === 1 ? "memory" : "memories"} to the archive.`}
           </p>
         </div>
       </section>

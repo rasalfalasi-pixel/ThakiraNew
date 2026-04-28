@@ -16,6 +16,17 @@ const achievements = [
 
 const StorytellerProfile = () => {
   const [showAchievements, setShowAchievements] = useState(false);
+  const { session } = useAuth();
+  const { percent, quizzesCompleted, approvedSubmissions } = useHeritageProgress();
+  const displayName = session?.displayName ?? "Storyteller";
+  const tier =
+    percent >= 70
+      ? { label: "Master Storyteller", status: "Master Status Active" }
+      : percent >= 40
+        ? { label: "Heritage Keeper", status: "Keeper Tier Active" }
+        : percent > 0
+          ? { label: "Apprentice Storyteller", status: "Apprentice Tier" }
+          : { label: "New Storyteller", status: "Begin your journey" };
 
   return (
     <AppShell title="THAKIRA">

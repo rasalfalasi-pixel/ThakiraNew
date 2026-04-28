@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppShell } from "@/components/AppShell";
 import { Icon } from "@/components/Icon";
-import { useQuiz, type QuizQuestion } from "@/hooks/useQuiz";
+import { useQuiz, recordQuizAttempt, type QuizQuestion } from "@/hooks/useQuiz";
+import { useAuth } from "@/auth/AuthContext";
 
 /**
  * Heritage Quiz — questions sourced from Lovable Cloud (`quizzes` + `questions`).

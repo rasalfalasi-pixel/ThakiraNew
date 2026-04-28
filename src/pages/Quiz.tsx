@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppShell } from "@/components/AppShell";
 import { Icon } from "@/components/Icon";
-import { useQuiz, type QuizQuestion } from "@/hooks/useQuiz";
+import { useQuiz, recordQuizAttempt, type QuizQuestion } from "@/hooks/useQuiz";
+import { useAuth } from "@/auth/AuthContext";
 
 /**
  * Heritage Quiz — questions sourced from Lovable Cloud (`quizzes` + `questions`).
@@ -37,7 +38,8 @@ type Stage =
 
 const Quiz = () => {
   const navigate = useNavigate();
-  const { questions: dbQuestions, loading: quizLoading } = useQuiz();
+  const { quiz, questions: dbQuestions, loading: quizLoading } = useQuiz();
+  const { session } = useAuth();
   const QUESTIONS = useMemo(() => adapt(dbQuestions), [dbQuestions]);
   const [stage, setStage] = useState<Stage>({ kind: "intro" });
   /** picked option per question id (undefined = unanswered) */
@@ -73,6 +75,10 @@ const Quiz = () => {
     const next = stage.index + 1;
     setShowHint(false);
     if (next >= total) {
+      // Record quiz completion in Lovable Cloud (fire-and-forget).
+      if (quiz && session) {
+        void recordQuizAttempt(quiz.id, session.userId, score, total);
+      }
       setStage({ kind: "results" });
     } else {
       setStage({ kind: "question", index: next });

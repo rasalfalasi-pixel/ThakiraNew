@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import { AppShell } from "@/components/AppShell";
 import { Icon } from "@/components/Icon";
-import { CHAPTERS } from "@/data/chapters";
+import { useChapters } from "@/hooks/useChapters";
 
 /**
  * ChaptersScreen
- * Index of all historical-journey chapters. Opens ChapterDetailScreen
- * at /journey/:chapterId. Replaces the previous single-chapter Journey view.
+ * Index of all historical-journey chapters from Lovable Cloud. Members see
+ * only chapters with visibility = 'public'; admins additionally see archived
+ * chapters (badged) and can toggle visibility from the chapter detail screen.
  */
 const Journey = () => {
+  const { chapters: CHAPTERS, loading } = useChapters();
   return (
     <AppShell title="Historical Journey">
       <section className="px-6 pt-2 pb-4">

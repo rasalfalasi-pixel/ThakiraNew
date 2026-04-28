@@ -32,6 +32,7 @@ import AdminOverview from "./pages/AdminOverview";
 import AdminUsers from "./pages/AdminUsers";
 import AdminMaintenance from "./pages/AdminMaintenance";
 import AdminLogs from "./pages/AdminLogs";
+import AdminModeration from "./pages/AdminModeration";
 
 import NotFound from "./pages/NotFound";
 
@@ -75,6 +76,7 @@ const App = () => (
             <Route path="/admin/users" element={<ProtectedRoute allow={[...adminOnly]}><AdminUsers /></ProtectedRoute>} />
             <Route path="/admin/maintenance" element={<ProtectedRoute allow={[...adminOnly]}><AdminMaintenance /></ProtectedRoute>} />
             <Route path="/admin/logs" element={<ProtectedRoute allow={[...adminOnly]}><AdminLogs /></ProtectedRoute>} />
+            <Route path="/admin/moderation" element={<ProtectedRoute allow={[...adminOnly]}><AdminModeration /></ProtectedRoute>} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

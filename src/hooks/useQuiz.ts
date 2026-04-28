@@ -64,3 +64,17 @@ export const useQuiz = () => {
 
   return { quiz, questions, loading };
 };
+
+export const recordQuizAttempt = async (
+  quizId: string,
+  userId: string,
+  score: number,
+  total: number,
+) => {
+  await supabase.from("quiz_attempts").insert({
+    quiz_id: quizId,
+    user_id: userId,
+    score,
+    total,
+  });
+};

@@ -38,7 +38,8 @@ type Stage =
 
 const Quiz = () => {
   const navigate = useNavigate();
-  const { questions: dbQuestions, loading: quizLoading } = useQuiz();
+  const { quiz, questions: dbQuestions, loading: quizLoading } = useQuiz();
+  const { session } = useAuth();
   const QUESTIONS = useMemo(() => adapt(dbQuestions), [dbQuestions]);
   const [stage, setStage] = useState<Stage>({ kind: "intro" });
   /** picked option per question id (undefined = unanswered) */

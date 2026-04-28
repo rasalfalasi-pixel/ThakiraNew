@@ -44,7 +44,7 @@ const StorytellerProfile = () => {
 
       {/* Progress */}
       <section className="px-6 mt-6">
-        <div className="bg-surface-container ghost-container ghost-border rounded-[1.5rem] p-5">
+        <div className="bg-surface-container ghost-border rounded-[1.5rem] p-5">
           <div className="flex items-end justify-between">
             <p className="text-foreground font-medium">
               {percent}% Heritage Completion — <span className="text-primary">{tier.status}</span>

@@ -75,6 +75,10 @@ const Quiz = () => {
     const next = stage.index + 1;
     setShowHint(false);
     if (next >= total) {
+      // Record quiz completion in Lovable Cloud (fire-and-forget).
+      if (quiz && session) {
+        void recordQuizAttempt(quiz.id, session.userId, score, total);
+      }
       setStage({ kind: "results" });
     } else {
       setStage({ kind: "question", index: next });

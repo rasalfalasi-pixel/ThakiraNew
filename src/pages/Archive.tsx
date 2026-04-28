@@ -1,21 +1,65 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppShell } from "@/components/AppShell";
 import { Icon } from "@/components/Icon";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/auth/AuthContext";
 
-const items = [
-  { id: "AR-2024-X9", title: "The Orange Groves of Jaffa", date: "May 24, 2024", status: "Pending" },
-  { id: "AR-2024-V2", title: "Tatreez Embroidery Notes", date: "May 12, 2024", status: "Verified" },
-  { id: "AR-2024-Q1", title: "Grandfather's Letters", date: "Apr 02, 2024", status: "Verified" },
-  { id: "AR-2024-J7", title: "Olive Harvest Recordings", date: "Mar 19, 2024", status: "Rejected" },
-];
+interface Submission {
+  id: string;
+  title: string;
+  status: "pending" | "approved" | "rejected";
+  created_at: string;
+}
 
 const statusStyles: Record<string, string> = {
-  Pending: "bg-primary/15 text-primary",
-  Verified: "bg-secondary/15 text-secondary",
-  Rejected: "bg-crimson/15 text-crimson",
+  pending: "bg-primary/15 text-primary",
+  approved: "bg-secondary/15 text-secondary",
+  rejected: "bg-crimson/15 text-crimson",
+};
+
+const statusLabel: Record<string, string> = {
+  pending: "Pending",
+  approved: "Verified",
+  rejected: "Rejected",
 };
 
 const Archive = () => {
+  const { session } = useAuth();
+  const [items, setItems] = useState<Submission[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!session) return;
+    const load = async () => {
+      const { data } = await supabase
+        .from("submissions")
+        .select("id,title,status,created_at")
+        .eq("user_id", session.userId)
+        .order("created_at", { ascending: false });
+      setItems((data ?? []) as Submission[]);
+      setLoading(false);
+    };
+    load();
+    const ch = supabase
+      .channel("archive-submissions")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "submissions" },
+        load,
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(ch);
+    };
+  }, [session?.userId]);
+
+  const counts = {
+    submitted: items.length,
+    verified: items.filter((i) => i.status === "approved").length,
+    pending: items.filter((i) => i.status === "pending").length,
+  };
+
   return (
     <AppShell>
       <section className="px-6 pt-2 pb-6">
@@ -26,9 +70,9 @@ const Archive = () => {
 
       <section className="px-6 grid grid-cols-3 gap-3 mb-6">
         {[
-          { l: "Submitted", v: "12" },
-          { l: "Verified", v: "8" },
-          { l: "Pending", v: "2" },
+          { l: "Submitted", v: counts.submitted },
+          { l: "Verified", v: counts.verified },
+          { l: "Pending", v: counts.pending },
         ].map((s) => (
           <div key={s.l} className="rounded-2xl p-4 bg-surface-container ghost-border text-center">
             <p className="font-serif text-3xl text-primary">{s.v}</p>
@@ -45,10 +89,19 @@ const Archive = () => {
           </button>
         </div>
         <div className="rounded-[1.5rem] bg-surface-container ghost-border overflow-hidden">
+          {loading && (
+            <p className="text-center text-sm text-muted-foreground py-10">Loading…</p>
+          )}
+          {!loading && items.length === 0 && (
+            <div className="text-center py-10 px-6">
+              <Icon name="inbox" size={36} className="text-primary mx-auto mb-3" />
+              <p className="text-sm text-muted-foreground">No memories yet. Begin your archive below.</p>
+            </div>
+          )}
           {items.map((it) => (
             <Link
               key={it.id}
-              to={it.status === "Rejected" ? "/submissions/rejected" : "/submissions"}
+              to="/submissions"
               className="ledger-row flex items-center gap-4 px-5 py-4 hover:bg-surface-high/60 transition-colors"
             >
               <div className="w-10 h-10 rounded-full bg-surface-high flex items-center justify-center text-primary">
@@ -57,11 +110,11 @@ const Archive = () => {
               <div className="flex-1 min-w-0">
                 <p className="font-serif text-foreground truncate">{it.title}</p>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                  ID #{it.id} • {it.date}
+                  ID #{it.id.slice(0, 8).toUpperCase()} • {new Date(it.created_at).toLocaleDateString()}
                 </p>
               </div>
               <span className={`text-[10px] font-bold uppercase tracking-widest rounded-full px-3 py-1 ${statusStyles[it.status]}`}>
-                {it.status}
+                {statusLabel[it.status]}
               </span>
             </Link>
           ))}
